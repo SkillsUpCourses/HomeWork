@@ -3,18 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.SpringXML.Model;
+package com.stoxa.springannotations.Model;
 
+import com.stoxa.springannotations.Model.Contact;
 import java.io.FileInputStream;
 import java.io.IOException;
 import org.springframework.beans.factory.config.AbstractFactoryBean;
 import java.util.Properties;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author ksu
  */
+
+@Component
 public class ContactBeanFactory implements FactoryBean<Contact>
        /** extends AbstractFactoryBean*/ {
     

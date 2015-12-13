@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.SpringXML.Service;
+package com.stoxa.springannotations.Service;
 
+import com.stoxa.springannotations.Model.Contact;
 import java.util.List;
-import com.stoxa.SpringXML.Model.Contact;
 
 /**
  *

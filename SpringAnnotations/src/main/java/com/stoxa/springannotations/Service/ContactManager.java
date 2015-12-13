@@ -3,22 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.SpringXML.Service;
+package com.stoxa.springannotations.Service;
 
+import com.stoxa.springannotations.Service.ContactService;
+import com.stoxa.springannotations.DAO.ContactDAO;
+import com.stoxa.springannotations.Model.Contact;
 import java.util.List;
-import com.stoxa.SpringXML.Model.Contact;
-import com.stoxa.SpringXML.DAO.ContactDAO;
+import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author ksu
  */
-public class ContactManager implements ContactService {
 
-    private ContactDAO dao;
-    private int maxContactBookSize;
-    private int contactsNumber;
+@Service
+@PropertySource("classpath:ContactBookMaximumSize.properties")
+public class ContactManager implements ContactService {
     
+    
+    private int contactsNumber;
+    @Autowired
+    private ContactDAO dao;
+    @Value("${maxSize}")
+    private int maxContactBookSize;
+    
+    
+    
+    @PostConstruct
     public void init() {
         this.contactsNumber=dao.getAllContacts().size();
         if (contactsNumber>=maxContactBookSize) {
@@ -72,18 +87,5 @@ public class ContactManager implements ContactService {
     public void setDao(ContactDAO dao) {
         this.dao = dao;
     }
-
-    /**
-     * @return the maxContactBookSize
-     */
-    public int getMaxContactBookSize() {
-        return maxContactBookSize;
-    }
-
-    /**
-     * @param maxContactBookSize the maxContactBookSize to set
-     */
-    public void setMaxContactBookSize(int maxContactBookSize) {
-        this.maxContactBookSize = maxContactBookSize;
-    }
 }
+    

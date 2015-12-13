@@ -3,19 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.SpringXML.DAO;
+package com.stoxa.springannotations.DAO;
 
+import com.stoxa.springannotations.DAO.ContactDAO;
+import com.stoxa.springannotations.Model.Contact;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import com.stoxa.SpringXML.Model.Contact;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ksu
  */
+
+@Repository
 public class ContactSimpleDAO implements ContactDAO{
 
+    @Autowired
     private List<Contact> contacts;
     
     @Override
@@ -73,3 +79,4 @@ public class ContactSimpleDAO implements ContactDAO{
     }
  
 }
+

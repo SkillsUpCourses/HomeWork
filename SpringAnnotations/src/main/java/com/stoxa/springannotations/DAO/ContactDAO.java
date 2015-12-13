@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.SpringXML.DAO;
+package com.stoxa.springannotations.DAO;
 
-import com.stoxa.SpringXML.Model.Contact;
+import com.stoxa.springannotations.Model.Contact;
 import java.util.List;
 
 /**
