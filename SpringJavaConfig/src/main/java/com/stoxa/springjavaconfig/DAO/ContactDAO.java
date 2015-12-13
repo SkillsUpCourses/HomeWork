@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springannotations.DAO;
+package com.stoxa.springjavaconfig.DAO;
 
-import com.stoxa.springannotations.Model.Contact;
-import java.util.List;
+import com.stoxa.springjavaconfig.Model.Contact;
+import java.util.Collection;
 
 /**
  *
@@ -17,7 +17,8 @@ public interface ContactDAO {
     public void updateContact(Contact contact);
     public void deleteContact(Contact contact);
     public Contact getContact(String phone);
-    public List<Contact> getAllContacts();
+    public Contact getContact(int number);
+    public Collection<Contact> getAllContacts();
     void clearAll();
     
 }

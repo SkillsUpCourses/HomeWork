@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springannotations.Service;
+package com.stoxa.springjavaconfig.Service;
 
-import com.stoxa.springannotations.Model.Contact;
-import java.util.List;
+import com.stoxa.springjavaconfig.Model.Contact;
+import java.util.Collection;
 
 /**
  *
@@ -17,6 +17,6 @@ public interface ContactService {
     void deleteContact (Contact contact);
     void updateContact(Contact contact);
     Contact getContact(String phone);
-    List<Contact> getAllContacts();
+    Collection<Contact> getAllContacts();
     void clearAll();
 }

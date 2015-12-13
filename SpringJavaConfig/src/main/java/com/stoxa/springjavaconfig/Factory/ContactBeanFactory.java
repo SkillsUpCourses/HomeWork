@@ -3,29 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springannotations.Model;
+package com.stoxa.springjavaconfig.Factory;
 
-import com.stoxa.springannotations.Model.Contact;
+import com.stoxa.springjavaconfig.Model.Contact;
 import java.io.FileInputStream;
 import java.io.IOException;
-import org.springframework.beans.factory.config.AbstractFactoryBean;
 import java.util.Properties;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.stereotype.Component;
+
 
 /**
  *
- * @author ksu
+ * @author stoxa
  */
 
-@Component
-public class ContactBeanFactory implements FactoryBean<Contact>
-       /** extends AbstractFactoryBean*/ {
+public class ContactBeanFactory implements FactoryBean<Contact> {
     
     private static  int contactCount = 1;
     private Contact newContact = null;
     private FileInputStream fis;
-    private Properties property = new Properties();
+    private final Properties property = new Properties();
 
     @Override
     public Class getObjectType() {
@@ -50,7 +47,7 @@ public class ContactBeanFactory implements FactoryBean<Contact>
             property.load(fis);
             if (!hasNextInstance()) {
                 throw new NullPointerException("There are no more contacts in file src/main/resources/contacts.properties, contactCount = " + contactCount);
-            }
+            } 
             newContact = new Contact();
             firstName = property.getProperty(contactCount + ".firstName");
             newContact.setFirstName(firstName);
@@ -74,5 +71,4 @@ public class ContactBeanFactory implements FactoryBean<Contact>
     public boolean isSingleton() {
         return false;
     }
-    
-}
+    }

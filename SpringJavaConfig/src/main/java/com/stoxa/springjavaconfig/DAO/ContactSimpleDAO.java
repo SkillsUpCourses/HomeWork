@@ -3,30 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springannotations.DAO;
+package com.stoxa.springjavaconfig.DAO;
 
-import com.stoxa.springannotations.DAO.ContactDAO;
-import com.stoxa.springannotations.Model.Contact;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import com.stoxa.springjavaconfig.Model.Contact;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  *
  * @author ksu
  */
-
-@Repository
 public class ContactSimpleDAO implements ContactDAO{
 
-    @Autowired
-    private List<Contact> contacts;
+    private Map <String,Contact> contacts;
     
     @Override
     public void addContact(Contact contact) {
-        contacts.add(contact);
+        contacts.put(contact.getPhone(), contact);
     }
  
     @Override
@@ -42,27 +35,17 @@ public class ContactSimpleDAO implements ContactDAO{
  
     @Override
     public void deleteContact(Contact contact) {
-        for(Iterator<Contact> it = contacts.iterator(); it.hasNext();) {
-            Contact cnt = it.next();
-            if(cnt.getPhone().equals(contact.getPhone())) {
-                it.remove();
-            }
-        }
+        contacts.remove(contact.getPhone(), contact);
     }
  
     @Override
     public Contact getContact(String phone) {
-        for(Contact contact : contacts) {
-            if(contact.getPhone().equals(phone)) {
-                return contact;
-            }
-        }
-        return null;
+        return contacts.get(phone);
     }
     
     @Override
-    public List<Contact> getAllContacts() {
-        return contacts;
+    public Collection <Contact> getAllContacts() {
+        return contacts.values();
     }
 
     @Override
@@ -74,9 +57,19 @@ public class ContactSimpleDAO implements ContactDAO{
     /**
      * @param contacts the contacts to set
      */
-    public void setContacts(List<Contact> contacts) {
+    public void setContacts(Map<String,Contact> contacts) {
         this.contacts = contacts;
     }
- 
+    
+    public Contact getContact(int number) {
+        int i=0;
+        for (Map.Entry<String, Contact> entry : contacts.entrySet()){
+            if(i==number) {
+                return entry.getValue();
+            }
+            i++;
+        }
+        throw new NullPointerException();  
+    } 
 }
 
