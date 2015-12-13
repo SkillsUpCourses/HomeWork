@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context.xsd">
+    
+     <context:property-placeholder location="classpath:ContactBookMaximumSize.properties"/>
+     
+     
+     <bean id="contactFactory" class="com.stoxa.SpringXML.Model.ContactBeanFactory" />
+     
+     <bean id="contact" factory-bean="contactFactory" factory-method="getObject" scope="prototype"/>
+     
+     <bean id="ContactDAO" class="com.stoxa.SpringXML.DAO.ContactSimpleDAO">
+         <property name="contacts">
+             <list>
+                 <ref bean="contact"/>
+                 <ref bean="contact"/>
+                 <ref bean="contact"/>
+                 <ref bean="contact"/>
+                 <ref bean="contact"/>
+             </list>
+         </property>
+     </bean>
+     
+     <bean id="ContactService" class="com.stoxa.SpringXML.Service.ContactManager" init-method="init">
+        <property name="dao" ref="ContactDAO"/>
+        <property name="maxContactBookSize" value="${maxSize}"/>      
+    </bean>
+</beans>
