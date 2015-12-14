@@ -5,6 +5,7 @@
  */
 package com.stoxa.springjavaconfig.DAO;
 
+import com.stoxa.springjavaconfig.Logger.AutoLogging;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.util.Collection;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Map;
  *
  * @author ksu
  */
+@AutoLogging
 public class ContactSimpleDAO implements ContactDAO{
 
     private Map <String,Contact> contacts;
@@ -61,6 +63,7 @@ public class ContactSimpleDAO implements ContactDAO{
         this.contacts = contacts;
     }
     
+
     public Contact getContact(int number) {
         int i=0;
         for (Map.Entry<String, Contact> entry : contacts.entrySet()){

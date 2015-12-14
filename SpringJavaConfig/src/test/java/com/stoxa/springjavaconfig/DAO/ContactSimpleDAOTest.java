@@ -5,6 +5,7 @@
  */
 package com.stoxa.springjavaconfig.DAO;
 
+import com.stoxa.springjavaconfig.Logger.AutoLogging;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,8 +19,9 @@ import static org.mockito.Mockito.mock;
 
 /**
  *
- * @author stoxa
+ * @author ksu
  */
+@AutoLogging
 public class ContactSimpleDAOTest {
     
     Contact contact;

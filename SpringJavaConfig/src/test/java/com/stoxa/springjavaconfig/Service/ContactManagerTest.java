@@ -7,6 +7,7 @@ package com.stoxa.springjavaconfig.Service;
 
 import com.stoxa.springjavaconfig.DAO.ContactDAO;
 import com.stoxa.springjavaconfig.DAO.ContactSimpleDAO;
+import com.stoxa.springjavaconfig.Logger.AutoLogging;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.util.Collection;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ import org.springframework.context.ApplicationEventPublisher;
  *
  * @author ksu
  */
+@AutoLogging
 @RunWith(MockitoJUnitRunner.class)
 public class ContactManagerTest {
     

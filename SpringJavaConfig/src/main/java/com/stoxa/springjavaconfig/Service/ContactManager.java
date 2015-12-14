@@ -7,6 +7,7 @@ package com.stoxa.springjavaconfig.Service;
 
 import com.stoxa.springjavaconfig.DAO.ContactDAO;
 import com.stoxa.springjavaconfig.EventListener.ClearEvent;
+import com.stoxa.springjavaconfig.Logger.AutoLogging;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.util.Collection;
 import org.springframework.context.ApplicationEventPublisher;
@@ -16,6 +17,7 @@ import org.springframework.context.ApplicationEventPublisherAware;
  *
  * @author ksu
  */
+@AutoLogging
 public class ContactManager implements ContactService, ApplicationEventPublisherAware {
 
     private ContactDAO dao;
