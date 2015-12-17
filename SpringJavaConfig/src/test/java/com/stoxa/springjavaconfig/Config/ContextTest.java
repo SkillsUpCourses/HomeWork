@@ -6,7 +6,6 @@
 package com.stoxa.springjavaconfig.Config;
 
 import com.stoxa.springjavaconfig.Factory.ContactBeanFactory;
-import com.stoxa.springjavaconfig.Logger.AutoLogging;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.lang.reflect.Field;
 import static org.junit.Assert.assertEquals;
@@ -23,7 +22,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author ksu
  */
-@AutoLogging
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
 public class ContextTest {

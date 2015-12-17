@@ -11,7 +11,6 @@ import com.stoxa.springjavaconfig.EventListener.ClearEvent;
 import com.stoxa.springjavaconfig.EventListener.DeleteContactListener;
 import com.stoxa.springjavaconfig.Model.Contact;
 import com.stoxa.springjavaconfig.Factory.ContactBeanFactory;
-import com.stoxa.springjavaconfig.Logger.AutoLoggingBeanPostProcessor;
 import com.stoxa.springjavaconfig.Service.ContactManager;
 import com.stoxa.springjavaconfig.Service.ContactService;
 import java.util.HashMap;
@@ -20,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -32,8 +30,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @Configuration
 @PropertySource("classpath:ContactBookMaximumSize.properties")
 @PropertySource("classpath:contacts.properties")
-@ComponentScan(basePackages = {"com.stoxa.springjavaconfig.*"},
-        nameGenerator = KsushikBeanNameGenerator.class)
 public class AppConfig {
 
     
@@ -79,10 +75,5 @@ public class AppConfig {
     @Bean
     ApplicationListener<ClearEvent> applicationListener() {
         return new DeleteContactListener();
-    }
-    
-    @Bean
-    public AutoLoggingBeanPostProcessor autologgingBeanPostProcessor() throws Exception {
-        return new AutoLoggingBeanPostProcessor();
     }
 }

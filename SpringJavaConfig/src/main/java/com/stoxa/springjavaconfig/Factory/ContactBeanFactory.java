@@ -5,7 +5,6 @@
  */
 package com.stoxa.springjavaconfig.Factory;
 
-import com.stoxa.springjavaconfig.Logger.AutoLogging;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,9 +14,9 @@ import org.springframework.beans.factory.FactoryBean;
 
 /**
  *
- * @author stoxa
+ * @author ksu
  */
- @AutoLogging
+
 public class ContactBeanFactory implements FactoryBean<Contact> {
     
     private static  int contactCount = 1;

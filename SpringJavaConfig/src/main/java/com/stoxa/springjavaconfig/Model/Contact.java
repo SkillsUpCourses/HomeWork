@@ -5,6 +5,9 @@
  */
 package com.stoxa.springjavaconfig.Model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author ksu
@@ -26,6 +29,12 @@ public class Contact {
         this.email = email;
     }
     
+    public Contact(ResultSet result) throws SQLException {
+        this.setFirstName(result.getString(1));
+        this.setLastName(result.getString(2));
+        this.setPhone(result.getString(3));
+        this.setEmail(result.getString(4));
+    }
  
     public String getFirstName() {
         return firstName;

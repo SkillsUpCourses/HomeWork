@@ -3,22 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springjavaconfig.Factory;
+package com.stoxa.springjavaconfig.Model;
 
 import com.stoxa.springjavaconfig.Factory.ContactBeanFactory;
-import com.stoxa.springjavaconfig.Logger.AutoLogging;
-import com.stoxa.springjavaconfig.Model.Contact;
+import java.io.FileInputStream;
 import java.lang.reflect.Field;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.lang.NullPointerException;
 
 /**
  *
- * @author ksu
+ * @author stoxa
  */
-@AutoLogging
 public class ContactBeanFactoryTest {
     
     ContactBeanFactory instance;
