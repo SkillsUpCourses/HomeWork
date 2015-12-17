@@ -87,11 +87,14 @@ public class AppConfig {
     @Bean
     DataSource dataSource() throws FileNotFoundException, IOException {
         DriverManagerDataSource dataSource =  new DriverManagerDataSource();
-        Properties property = new Properties();
+        /**Properties property = new Properties();
         FileInputStream propertyFile = new FileInputStream("src/main/resources/mydb.properties");
-        property.load(propertyFile);
+        property.load(propertyFile);*/
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setConnectionProperties(property);
+        dataSource.setUrl("jdbc:mysql://localhost:3306/mydb");
+        dataSource.setUsername("Ksu");
+        dataSource.setPassword("KurochkaRyaba13");
+       // dataSource.setConnectionProperties(property);
         return dataSource();
     }
     

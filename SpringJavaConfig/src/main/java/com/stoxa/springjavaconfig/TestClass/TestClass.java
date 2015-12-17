@@ -13,6 +13,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.aop.framework.autoproxy.AutoProxyUtils;
 
 /**
  *
@@ -20,7 +21,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class TestClass {
    public static void main(String[] args) throws Exception {
-       AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext (AppConfig.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         context.refresh();
         FactoryBean factory = context.getBean(ContactBeanFactory.class);
         Contact c1 = (Contact) factory.getObject();
