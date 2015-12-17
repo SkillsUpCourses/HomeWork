@@ -186,7 +186,15 @@ ContactJDBCDao() throws FileNotFoundException, IOException {
 
     @Override
     public void clearAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            connect = this.getConnect();
+            statement = connect.prepareStatement("DELETE FROM `mydb`.`contacts`;");
+            statement.execute();
+        } catch (SQLException ex) {
+            LOGGER.error("Unable to delete contacts from MySGL base", ex);
+        } finally {
+            this.letOutResources();
+        }
     }
     
     

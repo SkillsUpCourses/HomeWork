@@ -13,8 +13,13 @@ import com.stoxa.springjavaconfig.Model.Contact;
 import com.stoxa.springjavaconfig.Factory.ContactBeanFactory;
 import com.stoxa.springjavaconfig.Service.ContactManager;
 import com.stoxa.springjavaconfig.Service.ContactService;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import javax.activation.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.ApplicationListener;
@@ -22,6 +27,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 /**
  *
@@ -75,5 +82,21 @@ public class AppConfig {
     @Bean
     ApplicationListener<ClearEvent> applicationListener() {
         return new DeleteContactListener();
+    }
+    
+    @Bean
+    DataSource dataSource() throws FileNotFoundException, IOException {
+        DriverManagerDataSource dataSource =  new DriverManagerDataSource();
+        Properties property = new Properties();
+        FileInputStream propertyFile = new FileInputStream("src/main/resources/mydb.properties");
+        property.load(propertyFile);
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setConnectionProperties(property);
+        return dataSource();
+    }
+    
+    @Bean
+    JdbcTemplate jdbcTemplate() throws IOException {
+        return new JdbcTemplate((javax.sql.DataSource) dataSource());
     }
 }
