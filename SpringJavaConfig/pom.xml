@@ -52,12 +52,6 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>1.0-rc1</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
             <groupId>aspectj</groupId>
             <artifactId>aspectjtools</artifactId>
             <version>1.5.3</version>
@@ -89,6 +83,18 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>4.1.7.RELEASE</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.10.Final</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.1beta4</version>
             <type>jar</type>
         </dependency>
     </dependencies>

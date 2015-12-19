@@ -13,13 +13,11 @@ import com.stoxa.springjavaconfig.Model.Contact;
 import com.stoxa.springjavaconfig.Factory.ContactBeanFactory;
 import com.stoxa.springjavaconfig.Service.ContactManager;
 import com.stoxa.springjavaconfig.Service.ContactService;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
-import javax.activation.DataSource;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.ApplicationListener;
@@ -57,11 +55,6 @@ public class AppConfig {
     public ContactDAO dao() throws Exception {
         final ContactSimpleDAO dao = new ContactSimpleDAO();
         Map<String,Contact> contacts = new HashMap<String, Contact>();
-        contacts.put(contactBeanFactory().getObject().getPhone(),contactBeanFactory().getObject());
-        contacts.put(contactBeanFactory().getObject().getPhone(),contactBeanFactory().getObject());
-        contacts.put(contactBeanFactory().getObject().getPhone(),contactBeanFactory().getObject());
-        contacts.put(contactBeanFactory().getObject().getPhone(),contactBeanFactory().getObject());
-        contacts.put(contactBeanFactory().getObject().getPhone(),contactBeanFactory().getObject());
         dao.setContacts(contacts);
         return dao;
     }
@@ -95,11 +88,11 @@ public class AppConfig {
         dataSource.setUsername("Ksu");
         dataSource.setPassword("KurochkaRyaba13");
        // dataSource.setConnectionProperties(property);
-        return dataSource();
+        return dataSource;
     }
     
     @Bean
     JdbcTemplate jdbcTemplate() throws IOException {
-        return new JdbcTemplate((javax.sql.DataSource) dataSource());
+        return new JdbcTemplate(dataSource());
     }
 }

@@ -22,7 +22,6 @@ import org.springframework.aop.framework.autoproxy.AutoProxyUtils;
 public class TestClass {
    public static void main(String[] args) throws Exception {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-        context.refresh();
         FactoryBean factory = context.getBean(ContactBeanFactory.class);
         Contact c1 = (Contact) factory.getObject();
         Contact c2 = (Contact) factory.getObject();
