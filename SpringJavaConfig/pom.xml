@@ -96,6 +96,18 @@
             <artifactId>hibernate-annotations</artifactId>
             <version>3.1beta4</version>
             <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.persistence</groupId>
+                    <artifactId>ejb</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>4.1.7.RELEASE</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>
