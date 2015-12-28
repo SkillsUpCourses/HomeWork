@@ -3,23 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springjavaconfig.DAO;
+package com.stoxa.springjavaconfig.DAO.Impl;
 
+import com.stoxa.springjavaconfig.DAO.ContactDAO;
+import com.stoxa.springjavaconfig.Entity.MappedContact;
 import com.stoxa.springjavaconfig.Hibernate.HibernateUtil;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ksu
  */
+
+
+@Repository
 public class ContactHibernateDAO implements ContactDAO {
 
     @Override
-    public void addContact(Contact contact) {
+    public void insertContact(MappedContact contact) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         session.save(contact);
@@ -27,7 +33,7 @@ public class ContactHibernateDAO implements ContactDAO {
     }
 
     @Override
-    public void updateContact(Contact contact) {
+    public void updateContact(MappedContact contact) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         String hql = "UPDATE Contact set firstName = :name, lastName = :surname, phone = :phone, email = :email  "
@@ -42,7 +48,7 @@ public class ContactHibernateDAO implements ContactDAO {
     }
 
     @Override
-    public void deleteContact(Contact contact) {
+    public void deleteContact(MappedContact contact) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         session.delete(contact);
@@ -51,22 +57,22 @@ public class ContactHibernateDAO implements ContactDAO {
     }
 
     @Override
-    public Contact getContact(String phone) {
-        Contact result;
+    public MappedContact selectContact(String phone) {
+        MappedContact result;
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         Query query = session.createQuery("from Contact where phone=:phone");
         query.setParameter("phone", phone);
-        result = (Contact) query.uniqueResult();
+        result = (MappedContact) query.uniqueResult();
         session.getTransaction().commit();
         return result;
     }
 
     @Override
-    public List<Contact> getAllContacts() {
+    public List<MappedContact> selectAllContacts() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        List<Contact> result = session.createQuery("from Contact order by firstName").list();
+        List<MappedContact> result = session.createQuery("from Contact order by firstName").list();
         session.getTransaction().commit();
         return result;
     }
@@ -82,12 +88,12 @@ public class ContactHibernateDAO implements ContactDAO {
     }
 
     @Override
-    public Contact getContact(int number) {
+    public MappedContact selectContact(int number) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         Query query = session.createQuery("from Contact where id=:id");
         query.setInteger("id", number);
-        Contact result = (Contact) query.uniqueResult();
+        MappedContact result = (MappedContact) query.uniqueResult();
         session.getTransaction().commit();
         return result;
     }

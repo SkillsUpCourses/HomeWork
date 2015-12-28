@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springjavaconfig.Model;
+package com.stoxa.springjavaconfig.Entity;
 
-import com.stoxa.springjavaconfig.Entity.MappedContact;
+import com.stoxa.springjavaconfig.Model.*;
 import com.sun.org.apache.xpath.internal.operations.Equals;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,40 +30,70 @@ import javax.persistence.Table;
  *
  * @author ksu
  */
-
-public class Contact implements Comparable {
+@Entity
+@Table(name="contacts")
+public class MappedContact implements Comparable {
     
-  
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="ID")
+    private long id;
+    
+    @Column(name="CONTACT_NAME", length=100, nullable=false)
     private String firstName;
+    
+    @Column(name="CONTACT_SURNAME", length=100, nullable=false)
     private String lastName;
+    
+    @Column(name="CONTACT_PHONE", length=100, nullable=false)
     private String phone;
+    
+    @Column(name="CONTACT_EMAIL", length=100, nullable=false)
     private String email;
+    
+    @ManyToMany(cascade = { CascadeType.ALL })  
+    @JoinTable(name = "hobbies", joinColumns = { @JoinColumn(name = "ID") }, inverseJoinColumns = { @JoinColumn(name = "HOBBY_ID") }) 
     private Set <Hobby> hobbies= new HashSet<Hobby>();
    
-    public Contact() {
+    public MappedContact() {
     }
  
-    public Contact(String firstName, String lastName, String phone, String email) {
+    public MappedContact(String firstName, String lastName, String phone, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.email = email;
     }
     
-
+    public MappedContact(Long id, String firstName, String lastName, String phone, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.email = email;
+        this.id=id;
+    }
     
-    public Contact(ResultSet result) throws SQLException {
+    public MappedContact(ResultSet result) throws SQLException {
         this.setFirstName(result.getString(1));
         this.setLastName(result.getString(2));
         this.setPhone(result.getString(3));
         this.setEmail(result.getString(4));
     }
     
-    public Contact(MappedContact mappedContact) {
-        this.setFirstName(mappedContact.getFirstName());
-        this.setLastName(mappedContact.getLastName());
-        this.setPhone(mappedContact.getPhone());
-        this.setEmail(mappedContact.getEmail());
+    public MappedContact(Contact contact) {
+        this.setFirstName(contact.getFirstName());
+        this.setLastName(contact.getLastName());
+        this.setPhone(contact.getPhone());
+        this.setEmail(contact.getEmail());
+    }
+ 
+        
+    public long getID() {
+        return id;
+    }
+ 
+    public void setID (Long id) {
+        this.id = id;
     }
  
     public String getFirstName() {

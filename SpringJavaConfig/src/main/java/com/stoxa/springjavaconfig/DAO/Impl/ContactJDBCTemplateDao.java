@@ -3,24 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springjavaconfig.DAO;
+package com.stoxa.springjavaconfig.DAO.Impl;
 
+import com.stoxa.springjavaconfig.DAO.ContactDAO;
+import com.stoxa.springjavaconfig.Entity.MappedContact;
 import com.stoxa.springjavaconfig.Model.Contact;
 import com.stoxa.springjavaconfig.Model.ContactMapper;
 import java.util.Collection;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ksu
  */
+
+
+@Repository
 public class ContactJDBCTemplateDao implements ContactDAO {
 
     private String SQL;
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void addContact(Contact contact) {
+    public void insertContact(MappedContact contact) {
         SQL = "INSERT INTO `mydb`.`contacts` (`CONTACT_NAME`,"
                 + "`CONTACT_SURNAME`,`CONTACT_PHONE`, `CONTACT_EMAIL`)"
                 + "VALUES (?, ?, ?, ?);";
@@ -30,7 +36,7 @@ public class ContactJDBCTemplateDao implements ContactDAO {
     }
 
     @Override
-    public void updateContact(Contact contact) {
+    public void updateContact(MappedContact contact) {
         SQL = "UPDATE `mydb`.`contacts`"
                 + "SET `CONTACT_NAME` = ?, `CONTACT_SURNAME` = ?, "
                 + "`CONTACT_PHONE` = ?, `CONTACT_EMAIL` = ? WHERE `CONTACT_PHONE` = ?;";
@@ -39,33 +45,33 @@ public class ContactJDBCTemplateDao implements ContactDAO {
     }
 
     @Override
-    public void deleteContact(Contact contact) {
+    public void deleteContact(MappedContact contact) {
         SQL = "DELETE FROM `mydb`.`contacts` WHERE `contacts`.`CONTACT_PHONE` = ?;";
         jdbcTemplate.update(SQL, contact.getPhone());
         return;
     }
 
     @Override
-    public Contact getContact(String phone) {
+    public MappedContact selectContact(String phone) {
         SQL = "SELECT `contacts`.`CONTACT_NAME`, `contacts`.`CONTACT_SURNAME`,\n"
                 + "`contacts`.`CONTACT_PHONE`, `contacts`.`CONTACT_EMAIL` FROM `mydb`.`contacts` WHERE `contacts`.`CONTACT_PHONE` = ?;";
-        Contact contact = jdbcTemplate.queryForObject(SQL, new Object[]{phone}, new ContactMapper());
+        MappedContact contact = jdbcTemplate.queryForObject(SQL, new Object[]{phone}, new ContactMapper());
         return contact;
     }
 
     @Override
-    public Contact getContact(int number) {
+    public MappedContact selectContact(int number) {
         SQL = "SELECT `contacts`.`CONTACT_NAME`, `contacts`.`CONTACT_SURNAME`,\n"
                 + "`contacts`.`CONTACT_PHONE`, `contacts`.`CONTACT_EMAIL` FROM `mydb`.`contacts` WHERE `contacts`.`ID` = ?;";
-        Contact contact = jdbcTemplate.queryForObject(SQL, new Object[]{number}, new ContactMapper());
+        MappedContact contact = jdbcTemplate.queryForObject(SQL, new Object[]{number}, new ContactMapper());
         return contact;
     }
 
     @Override
-    public Collection<Contact> getAllContacts() {
+    public Collection<MappedContact> selectAllContacts() {
         SQL = "SELECT `contacts`.`CONTACT_NAME`, `contacts`.`CONTACT_SURNAME`,\n"
                 + "`contacts`.`CONTACT_PHONE`, `contacts`.`CONTACT_EMAIL` FROM `mydb`.`contacts`;";
-        Collection<Contact> contacts = jdbcTemplate.query(SQL,
+        Collection<MappedContact> contacts = jdbcTemplate.query(SQL,
                 new ContactMapper());
         return contacts;
     }

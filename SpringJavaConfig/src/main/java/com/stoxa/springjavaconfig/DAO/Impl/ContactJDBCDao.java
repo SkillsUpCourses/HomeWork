@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springjavaconfig.DAO;
+package com.stoxa.springjavaconfig.DAO.Impl;
 
 
+import com.stoxa.springjavaconfig.DAO.ContactDAO;
+import com.stoxa.springjavaconfig.Entity.MappedContact;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,11 +22,15 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Properties;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ksu
  */
+
+
+@Repository
 public class ContactJDBCDao implements ContactDAO {
     
 private static final Logger LOGGER = LoggerFactory.getLogger(ContactJDBCDao.class);
@@ -65,7 +71,7 @@ ContactJDBCDao() throws FileNotFoundException, IOException {
     
  
     @Override
-    public void addContact(Contact contact) {
+    public void insertContact(MappedContact contact) {
         try {
             connect = this.getConnect();
             statement = connect.prepareStatement(
@@ -85,7 +91,7 @@ ContactJDBCDao() throws FileNotFoundException, IOException {
     }
 
     @Override
-    public void updateContact(Contact contact) {
+    public void updateContact(MappedContact contact) {
         try {
             connect = this.getConnect();
             statement = connect.prepareStatement("UPDATE `mydb`.`contacts`"
@@ -105,7 +111,7 @@ ContactJDBCDao() throws FileNotFoundException, IOException {
     }
 
     @Override
-    public void deleteContact(Contact contact) {
+    public void deleteContact(MappedContact contact) {
         try {
             connect = this.getConnect();
             statement = connect.prepareStatement("DELETE FROM `mydb`.`contacts` WHERE `contacts`.`CONTACT_PHONE` = ?;");
@@ -119,15 +125,15 @@ ContactJDBCDao() throws FileNotFoundException, IOException {
     }
 
     @Override
-    public Contact getContact(String phone) {
-        Contact contact = null;
+    public MappedContact selectContact(String phone) {
+        MappedContact contact = null;
         try {
             connect = this.getConnect();
             statement = connect.prepareStatement("SELECT `contacts`.`CONTACT_NAME`, `contacts`.`CONTACT_SURNAME`,\n"
                     + "`contacts`.`CONTACT_PHONE`, `contacts`.`CONTACT_EMAIL` FROM `mydb`.`contacts` WHERE `contacts`.`CONTACT_PHONE` = ?;");
             statement.setString(1, phone);
             result = statement.executeQuery();
-            contact = new Contact(result);
+            contact = new MappedContact(result);
         } catch (SQLException ex) {
             LOGGER.error("Unable to select contact with phone number " + phone + " from MySGL base", ex);
         } finally {
@@ -141,15 +147,15 @@ ContactJDBCDao() throws FileNotFoundException, IOException {
     
 
     @Override
-    public Contact getContact(int number) {
-        Contact contact = null;
+    public MappedContact selectContact(int number) {
+        MappedContact contact = null;
         try {
             connect = this.getConnect();
             statement = connect.prepareStatement("SELECT `contacts`.`CONTACT_NAME`, `contacts`.`CONTACT_SURNAME`,\n"
                     + "`contacts`.`CONTACT_PHONE`, `contacts`.`CONTACT_EMAIL` FROM `mydb`.`contacts` WHERE `contacts`.`ID` = ?;");
             statement.setInt(1, number);
             result = statement.executeQuery();
-            contact = new Contact(result);
+            contact = new MappedContact(result);
         } catch (SQLException ex) {
             LOGGER.error("Unable to select contact number " + number + " from MySGL base", ex);
         } finally {
@@ -162,9 +168,9 @@ ContactJDBCDao() throws FileNotFoundException, IOException {
     }
 
     @Override
-    public Collection<Contact> getAllContacts() {
+    public Collection<MappedContact> selectAllContacts() {
 
-        Collection<Contact> contacts = new ArrayList<Contact>();
+        Collection<MappedContact> contacts = new ArrayList<MappedContact>();
 
         try {
             connect = this.getConnect();
@@ -173,7 +179,7 @@ ContactJDBCDao() throws FileNotFoundException, IOException {
             result = statement.executeQuery();
 
             while (result.next()) {
-                Contact contact = new Contact(result);
+                MappedContact contact = new MappedContact(result);
                 contacts.add(contact);
             }
         } catch (SQLException ex) {

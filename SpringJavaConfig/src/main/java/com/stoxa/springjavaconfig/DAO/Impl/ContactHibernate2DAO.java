@@ -3,54 +3,59 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springjavaconfig.DAO;
+package com.stoxa.springjavaconfig.DAO.Impl;
 
 
-import com.stoxa.springjavaconfig.Model.Contact;
+import com.stoxa.springjavaconfig.DAO.ContactDAO;
+import com.stoxa.springjavaconfig.Entity.MappedContact;
 import java.util.Collection;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author ksu
  */
+
+
+@Repository
 public class ContactHibernate2DAO extends HibernateDaoSupport implements ContactDAO {
 
     @Override
     @Transactional(readOnly=false)
-    public void addContact(Contact contact) {
+    public void insertContact(MappedContact contact) {
         getHibernateTemplate().save(contact);
     }
 
     @Override
     @Transactional(readOnly=false)
-    public void updateContact(Contact contact) {
+    public void updateContact(MappedContact contact) {
         getHibernateTemplate().update(contact);
     }
 
     @Override
     @Transactional(readOnly=false)
-    public void deleteContact(Contact contact) {
+    public void deleteContact(MappedContact contact) {
         getHibernateTemplate().delete(contact);
     }
 
     @Override
     @Transactional(readOnly=true)
-    public Contact getContact(String phone) {
-        Contact result = (Contact) getHibernateTemplate().find("from Contact where phone=?", phone);
+    public MappedContact selectContact(String phone) {
+        MappedContact result = (MappedContact) getHibernateTemplate().find("from Contact where phone=?", phone);
         return result;
     }
 
     @Override
     @Transactional(readOnly=true)
-    public Contact getContact(int number) {
-        return getHibernateTemplate().get(Contact.class, number);
+    public MappedContact selectContact(int number) {
+        return getHibernateTemplate().get(MappedContact.class, number);
     }
 
     @Override
     @Transactional(readOnly=true)
-    public Collection<Contact> getAllContacts() {
-        return (Collection<Contact>) getHibernateTemplate().find("from Contact");
+    public Collection<MappedContact> selectAllContacts() {
+        return (Collection<MappedContact>) getHibernateTemplate().find("from Contact");
     }
 
     @Override

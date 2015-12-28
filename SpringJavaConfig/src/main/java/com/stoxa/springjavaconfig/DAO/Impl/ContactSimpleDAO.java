@@ -3,28 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springjavaconfig.DAO;
+package com.stoxa.springjavaconfig.DAO.Impl;
 
+import com.stoxa.springjavaconfig.DAO.ContactDAO1;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.util.Collection;
 import java.util.Map;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ksu
  */
-public class ContactSimpleDAO implements ContactDAO{
+
+@Repository
+public class ContactSimpleDAO implements ContactDAO1{
 
     private Map <String,Contact> contacts;
     
     @Override
-    public void addContact(Contact contact) {
+    public void insertContact(Contact contact) {
         contacts.put(contact.getPhone(), contact);
     }
  
     @Override
     public void updateContact(Contact contact) {
-        Contact oldContact = getContact(contact.getPhone());
+        Contact oldContact = selectContact(contact.getPhone());
         if(oldContact != null) {
             oldContact.setFirstName(contact.getFirstName());
             oldContact.setLastName(contact.getLastName());
@@ -39,12 +43,12 @@ public class ContactSimpleDAO implements ContactDAO{
     }
  
     @Override
-    public Contact getContact(String phone) {
+    public Contact selectContact(String phone) {
         return contacts.get(phone);
     }
     
     @Override
-    public Collection <Contact> getAllContacts() {
+    public Collection <Contact> selectAllContacts() {
         return contacts.values();
     }
 
@@ -61,7 +65,7 @@ public class ContactSimpleDAO implements ContactDAO{
         this.contacts = contacts;
     }
     
-    public Contact getContact(int number) {
+    public Contact selectContact(int number) {
         int i=0;
         for (Map.Entry<String, Contact> entry : contacts.entrySet()){
             if(i==number) {

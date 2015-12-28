@@ -13,13 +13,13 @@ import java.util.Collection;
  *
  * @author ksu
  */
-public interface ContactDAO {
-    public void insertContact(MappedContact contact);
-    public void updateContact(MappedContact contact);
-    public void deleteContact(MappedContact contact);
-    public MappedContact selectContact(String phone);
-    public MappedContact selectContact(int number);
-    public Collection<MappedContact> selectAllContacts();
+public interface ContactDAO1 {
+    public void insertContact(Contact contact);
+    public void updateContact(Contact contact);
+    public void deleteContact(Contact contact);
+    public Contact selectContact(String phone);
+    public Contact selectContact(int number);
+    public Collection<Contact> selectAllContacts();
     void clearAll();
     
 }

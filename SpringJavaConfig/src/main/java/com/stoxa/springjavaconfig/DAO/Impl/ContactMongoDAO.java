@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springjavaconfig.DAO;
+package com.stoxa.springjavaconfig.DAO.Impl;
 
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.util.Collection;
@@ -14,16 +14,21 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import com.stoxa.springjavaconfig.DAO.ContactDAO1;
 import com.stoxa.springjavaconfig.Model.BasicDBObjectAdapter;
 import com.stoxa.springjavaconfig.Model.ContactInfoAdapter;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ksu
  */
-public class ContactMongoDAO implements ContactDAO {
+
+
+@Repository
+public class ContactMongoDAO implements ContactDAO1 {
 
     private final MongoClient mongoClient;
     private final DB db;
@@ -38,7 +43,7 @@ public class ContactMongoDAO implements ContactDAO {
     }
 
     @Override
-    public void addContact(Contact contact) {
+    public void insertContact(Contact contact) {
         BasicDBObjectAdapter adapter = new BasicDBObjectAdapter(contact);
         BasicDBObject document = adapter.adaptToBasicDBObject();
         table.save(document);
@@ -63,7 +68,7 @@ public class ContactMongoDAO implements ContactDAO {
     }
 
     @Override
-    public Contact getContact(String phone) {
+    public Contact selectContact(String phone) {
         ContactInfoAdapter adapter;
         searchQuery = new BasicDBObject();
         searchQuery.put("phoneNumber", phone);
@@ -73,7 +78,7 @@ public class ContactMongoDAO implements ContactDAO {
     }
 
     @Override
-    public Contact getContact(int number) {
+    public Contact selectContact(int number) {
         ContactInfoAdapter adapter;
         DBCursor cursor = table.find();
         int i = 0;
@@ -89,7 +94,7 @@ public class ContactMongoDAO implements ContactDAO {
     }
 
     @Override
-    public Collection<Contact> getAllContacts() {
+    public Collection<Contact> selectAllContacts() {
         ContactInfoAdapter adapter;
         Contact contact;
         Collection<Contact> contacts = new ArrayList<>();

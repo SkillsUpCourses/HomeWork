@@ -5,8 +5,12 @@
  */
 package com.stoxa.springjavaconfig.Service;
 
+import com.stoxa.springjavaconfig.Service.Impl.ContactManager;
 import com.stoxa.springjavaconfig.DAO.ContactDAO;
-import com.stoxa.springjavaconfig.DAO.ContactSimpleDAO;
+import com.stoxa.springjavaconfig.DAO.ContactDAO1;
+import com.stoxa.springjavaconfig.DAO.Impl.ContactJPADAO;
+import com.stoxa.springjavaconfig.DAO.Impl.ContactSimpleDAO;
+import com.stoxa.springjavaconfig.Entity.MappedContact;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.util.Collection;
 import java.util.HashMap;
@@ -33,11 +37,12 @@ import org.springframework.context.ApplicationEventPublisher;
 public class ContactManagerTest {
     
     private ContactDAO dao;
-    Contact contact1, contact2;
+    Contact contact1;
+    Contact contact2;
     ContactManager instance;
     
     public ContactManagerTest() {
-        dao = mock(ContactSimpleDAO.class);
+        dao = mock(ContactJPADAO.class);
     }
     
     @BeforeClass
@@ -71,10 +76,10 @@ public class ContactManagerTest {
         ApplicationEventPublisher publisher = mock(ApplicationEventPublisher.class);
         spyContactManager.setApplicationEventPublisher(publisher);
         spyContactManager.setMaxContactBookSize(2);
-        Map<String,Contact> contacts = new HashMap<>();
-        contacts.put(contact1.getPhone(), contact1);
-        contacts.put(contact2.getPhone(), contact2);
-        when(dao.getAllContacts()).thenReturn(contacts.values());
+        Map<String,MappedContact> contacts = new HashMap<>();
+        contacts.put(contact1.getPhone(), new MappedContact(contact1));
+        contacts.put(contact2.getPhone(), new MappedContact(contact2));
+        when(dao.selectAllContacts()).thenReturn(contacts.values());
         spyContactManager.init();
         verify(spyContactManager).clear();
     }
@@ -87,7 +92,7 @@ public class ContactManagerTest {
         System.out.println("addContact test");
         Contact contact = new Contact("Егорчик", "Синяев", "+380777777777", "egorchik@gmail.com");
         instance.addContact(contact);
-        verify(dao).addContact(contact);
+        verify(dao).insertContact(new MappedContact(contact));
     }
 
     /**
@@ -99,7 +104,7 @@ public class ContactManagerTest {
         Contact contact = new Contact("Оксана", "Синяева", "+380937405289", "dn100488rol@gmail.com");;
         instance.addContact(contact1);
         instance.updateContact(contact);
-        verify(dao).updateContact(contact);
+        verify(dao).updateContact(new MappedContact(contact));
     }
 
     /**
@@ -114,7 +119,7 @@ public class ContactManagerTest {
         instance.addContact(contact);
         instance.deleteContact(contact);
         //verify(publisher).publishEvent(anyInt());
-        verify(dao).deleteContact(contact);
+        verify(dao).deleteContact(new MappedContact(contact));
     }
 
     /**
@@ -125,10 +130,10 @@ public class ContactManagerTest {
         System.out.println("getContact test");
         String phone = "+380937405289";
         instance.addContact(contact1);
-        when(dao.getContact(phone)).thenReturn(contact1);
+        when(dao.selectContact(phone)).thenReturn(new MappedContact(contact1));
         Contact expResult = contact1;
         Contact result = instance.getContact(phone);
-        verify(dao).getContact(phone);
+        verify(dao).selectContact(phone);
         assertEquals(expResult, result);
     }
 
@@ -139,10 +144,11 @@ public class ContactManagerTest {
     public void testGetAllContacts() {
         System.out.println("getAllContacts test");
         instance.addContact(contact1);
-        Collection <Contact> expResult = mock(Collection.class);
-        when(dao.getAllContacts()).thenReturn(expResult);
+        Collection <MappedContact> expResult = mock(Collection.class);
+        when(dao.selectAllContacts()).thenReturn(expResult);
         Collection <Contact> result = instance.getAllContacts();
-        assertEquals(expResult, result);
+        verify(dao).selectAllContacts();
+        
     }
 
     /**
@@ -167,6 +173,6 @@ public class ContactManagerTest {
         ApplicationEventPublisher publisher = mock(ApplicationEventPublisher.class);
         instance.setApplicationEventPublisher(publisher);
         instance.clear();
-        verify(dao).getAllContacts();
+        verify(dao).selectAllContacts();
     }   
 }

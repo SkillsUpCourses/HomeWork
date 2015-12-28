@@ -5,6 +5,7 @@
  */
 package com.stoxa.springjavaconfig.Model;
 
+import com.stoxa.springjavaconfig.Entity.MappedContact;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,11 +14,11 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author ksu
  */
-public class ContactMapper implements RowMapper<Contact>  {
+public class ContactMapper implements RowMapper<MappedContact>  {
 
     @Override
-    public Contact mapRow (ResultSet rs, int rowNum) throws SQLException {
-      Contact contact = new Contact();
+    public MappedContact mapRow (ResultSet rs, int rowNum) throws SQLException {
+      MappedContact contact = new MappedContact();
       contact.setFirstName(rs.getString("name"));
       contact.setLastName(rs.getString("surname"));
       contact.setPhone(rs.getString("phone"));

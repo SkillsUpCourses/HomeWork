@@ -3,32 +3,50 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stoxa.springjavaconfig.Service;
+package com.stoxa.springjavaconfig.Service.Impl;
 
 import com.stoxa.springjavaconfig.DAO.ContactDAO;
+import com.stoxa.springjavaconfig.DAO.Impl.ContactJDBCDao;
 import com.stoxa.springjavaconfig.EventListener.ClearEvent;
 import com.stoxa.springjavaconfig.Model.Contact;
+import com.stoxa.springjavaconfig.Entity.MappedContact;
+import com.stoxa.springjavaconfig.Service.ContactService;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author ksu
  */
+
+@Service
 public class ContactManager implements ContactService, ApplicationEventPublisherAware {
 
+    @Autowired
     private ContactDAO dao;
+    
+    @Value("${maxSize}")
     private int maxContactBookSize;
     private int contactsNumber;
     private ApplicationEventPublisher publisher;
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ContactManager.class);
 
     public void setApplicationEventPublisher(ApplicationEventPublisher publisher){
         this.publisher = publisher;
     }
     
     public void init() {
-        this.contactsNumber=dao.getAllContacts().size();
+        this.contactsNumber=dao.selectAllContacts().size();
         if (contactsNumber>=maxContactBookSize) {
         clear();  
             System.err.println("Почищена книга контактов");
@@ -37,37 +55,55 @@ public class ContactManager implements ContactService, ApplicationEventPublisher
     
 
     @Override
+    @Transactional
     public void addContact(Contact contact) {
-        dao.addContact(contact);
+        dao.insertContact(new MappedContact(contact));
     }
     
+    @Override
+    @Transactional
     public void updateContact(Contact contact) {
-        dao.updateContact(contact);
+        dao.updateContact(new MappedContact(contact));
     }
  
     @Override
+    @Transactional
     public void deleteContact(Contact contact) {
         publisher.publishEvent(new ClearEvent(this, contact));
-        dao.deleteContact(contact);
+        dao.deleteContact(new MappedContact(contact));
     }
  
+    @Override
+    @Transactional
     public Contact getContact(String phone) {
-        return dao.getContact(phone);
+        return new Contact(dao.selectContact(phone));
     }
     
-    @Override
+     @Override
+    @Transactional
     public Collection <Contact> getAllContacts() {
-        return dao.getAllContacts();
+         Collection<MappedContact> mappedContacts = dao.selectAllContacts();
+         Collection<Contact> contacts = new ArrayList<Contact>(mappedContacts.size());
+        for (MappedContact mappedContact : mappedContacts) {
+            Contact contact = null;
+            contact = new Contact(mappedContact);
+            contacts.add(contact);
+        }
+        return contacts;
     }
 
-    @Override
+     @Override
+    @Transactional
     public void clearAll() {
         dao.clearAll();
     }
     
+    
+    @Transactional
     public void clear() {
-        publisher.publishEvent(new ClearEvent(this, dao.getContact(contactsNumber-1)));
-        dao.getAllContacts().remove(dao.getContact(contactsNumber-1));
+        Contact contact = new Contact (dao.selectContact(contactsNumber-1));
+            publisher.publishEvent(new ClearEvent(this, contact));
+            dao.selectAllContacts().remove(contact);
     }
 
     /**

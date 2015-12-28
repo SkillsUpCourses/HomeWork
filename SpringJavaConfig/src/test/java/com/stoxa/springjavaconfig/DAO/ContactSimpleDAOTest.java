@@ -5,6 +5,7 @@
  */
 package com.stoxa.springjavaconfig.DAO;
 
+import com.stoxa.springjavaconfig.DAO.Impl.ContactSimpleDAO;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.util.Collection;
 import java.util.HashMap;
@@ -45,8 +46,8 @@ public class ContactSimpleDAOTest {
         contact2 = new Contact("Тошик", "Синяев", "+380507464280", "dn091986saa@gmail.com");
         instance = new ContactSimpleDAO();
         instance.setContacts(new HashMap<>());
-        instance.addContact(contact);
-        instance.addContact(contact2);
+        instance.insertContact(contact);
+        instance.insertContact(contact2);
         
     }
    
@@ -58,7 +59,7 @@ public class ContactSimpleDAOTest {
     public void testAddContact() {
         System.out.println("addContact test");
         
-        assertEquals(2, instance.getAllContacts().size());
+        assertEquals(2, instance.selectAllContacts().size());
         System.out.println("addContact test is passed");
     }
 
@@ -70,7 +71,7 @@ public class ContactSimpleDAOTest {
         System.out.println("updateContact test");
         Contact newContact = new Contact("Оксана", "Синяева", "+380937405289", "dn100488rol@gmail.com");
         instance.updateContact(newContact);
-        assertEquals(newContact.getLastName(), instance.getContact("+380937405289").getLastName());
+        assertEquals(newContact.getLastName(), instance.selectContact("+380937405289").getLastName());
         System.out.println("updateContact test is passed");
     }
 
@@ -81,7 +82,7 @@ public class ContactSimpleDAOTest {
     public void testDeleteContact() {
         System.out.println("deleteContact test");
         instance.deleteContact(contact);
-        assertEquals(1, instance.getAllContacts().size());
+        assertEquals(1, instance.selectAllContacts().size());
         System.out.println("deleteContact test is passed");
     }
 
@@ -93,7 +94,7 @@ public class ContactSimpleDAOTest {
         System.out.println("getContact test");
         String phone = "+380937405289";
         Contact expResult = contact;
-        Contact result = instance.getContact(phone);
+        Contact result = instance.selectContact(phone);
         assertEquals(expResult, result);
         System.out.println("getContact test is passed");
     }
@@ -104,7 +105,7 @@ public class ContactSimpleDAOTest {
     @Test
     public void testGetAllContacts() {
         System.out.println("getAllContacts test");
-        Collection<Contact> result = instance.getAllContacts();
+        Collection<Contact> result = instance.selectAllContacts();
         assertEquals(2, result.size());
         System.out.println("getAllContacts test is passed");
     }
@@ -116,7 +117,7 @@ public class ContactSimpleDAOTest {
     public void testClearAll() {
         System.out.println("clearAll");
         instance.clearAll();
-        assertEquals(0, instance.getAllContacts().size());
+        assertEquals(0, instance.selectAllContacts().size());
         System.out.println("clearAll test is passed");
     }
 
@@ -130,7 +131,7 @@ public class ContactSimpleDAOTest {
         contacts.put(contact.getPhone(), contact);
         contacts.put(contact2.getPhone(), contact);
         instance.setContacts(contacts);
-        assertEquals(2, instance.getAllContacts().size());
+        assertEquals(2, instance.selectAllContacts().size());
         System.out.println("setContacts test is passed");
     }
 
@@ -142,7 +143,7 @@ public class ContactSimpleDAOTest {
         System.out.println("getContact test");
         int number = 0;
         Contact expResult = contact;
-        Contact result = instance.getContact(number);
+        Contact result = instance.selectContact(number);
         assertEquals(expResult, result);
         System.out.println("getContact test is passed");
     }
