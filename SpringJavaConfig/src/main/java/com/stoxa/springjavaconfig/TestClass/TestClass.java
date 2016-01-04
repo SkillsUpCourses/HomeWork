@@ -65,12 +65,12 @@ public class TestClass {
         
         System.out.println("******************************************");        
         
-        System.out.println("CLEAR ALL CONTACTS ==============");
+        /*System.out.println("CLEAR ALL CONTACTS ==============");
         contactService.clearAll();
         Collection<Contact> result4 = contactService.getAllContacts();
         for(Contact c : result4) {
-            System.out.println(c);
-        }
+            System.out.println(c);**/
+        
     }
    }
 

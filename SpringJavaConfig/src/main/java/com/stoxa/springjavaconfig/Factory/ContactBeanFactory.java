@@ -54,9 +54,9 @@ public class ContactBeanFactory implements FactoryBean<Contact> {
             newContact.setPhone(phone);
             email = property.getProperty(contactCount + ".email");
             newContact.setEmail(email);
-            /** if (!hasNextInstance()) {
+            if (!hasNextInstance()) {
                 throw new NullPointerException("There are no more contacts in file src/main/resources/contacts.properties, contactCount = " + contactCount);
-            } */
+            } 
             
 
         } catch (IOException e) {

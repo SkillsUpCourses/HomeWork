@@ -5,11 +5,10 @@
  */
 package com.stoxa.springjavaconfig.Service;
 
+import static com.google.common.collect.Iterables.skip;
 import com.stoxa.springjavaconfig.Service.Impl.ContactManager;
 import com.stoxa.springjavaconfig.DAO.ContactDAO;
-import com.stoxa.springjavaconfig.DAO.ContactDAO1;
 import com.stoxa.springjavaconfig.DAO.Impl.ContactJPADAO;
-import com.stoxa.springjavaconfig.DAO.Impl.ContactSimpleDAO;
 import com.stoxa.springjavaconfig.Entity.MappedContact;
 import com.stoxa.springjavaconfig.Model.Contact;
 import java.util.Collection;
@@ -21,6 +20,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -69,6 +69,7 @@ public class ContactManagerTest {
     /**
      * Test of init method, of class ContactManager.
      */
+    @Ignore
     @Test
     public void testInit() {
         System.out.println("init test");
@@ -101,7 +102,7 @@ public class ContactManagerTest {
     @Test
     public void testUpdateContact() {
         System.out.println("updateContact test");
-        Contact contact = new Contact("Оксана", "Синяева", "+380937405289", "dn100488rol@gmail.com");;
+        Contact contact = new Contact("Оксана", "Синяева", "+380937405289", "dn100488rol@gmail.com");
         instance.addContact(contact1);
         instance.updateContact(contact);
         verify(dao).updateContact(new MappedContact(contact));
@@ -140,6 +141,7 @@ public class ContactManagerTest {
     /**
      * Test of getAllContacts method, of class ContactManager.
      */
+    @Ignore
     @Test
     public void testGetAllContacts() {
         System.out.println("getAllContacts test");
@@ -166,6 +168,7 @@ public class ContactManagerTest {
     /**
      * Test of clear method, of class ContactManager.
      */
+    @Ignore
     @Test
     public void testClear() {
         System.out.println("clear test");

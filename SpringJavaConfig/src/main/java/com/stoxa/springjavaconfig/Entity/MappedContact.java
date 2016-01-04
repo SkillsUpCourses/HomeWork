@@ -6,12 +6,10 @@
 package com.stoxa.springjavaconfig.Entity;
 
 import com.stoxa.springjavaconfig.Model.*;
-import com.sun.org.apache.xpath.internal.operations.Equals;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.Collator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import javax.persistence.CascadeType;

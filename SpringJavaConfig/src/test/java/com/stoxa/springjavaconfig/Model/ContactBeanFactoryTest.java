@@ -6,12 +6,8 @@
 package com.stoxa.springjavaconfig.Model;
 
 import com.stoxa.springjavaconfig.Factory.ContactBeanFactory;
-import java.io.FileInputStream;
 import java.lang.reflect.Field;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.lang.NullPointerException;

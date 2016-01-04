@@ -10,6 +10,7 @@ import com.stoxa.springjavaconfig.Model.Contact;
 import java.lang.reflect.Field;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -22,6 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author ksu
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
 public class ContextTest {
@@ -33,7 +35,7 @@ public class ContextTest {
     @Rule
     public final ExpectedException thrown = ExpectedException.none(); 
     
-    
+    @Ignore
     @Test
     public void springContextTest() throws Exception {
         System.out.println("Spring context test");
