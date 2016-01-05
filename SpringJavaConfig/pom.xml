@@ -5,6 +5,12 @@
     <artifactId>SpringJavaConfig</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jdk.version>1.7</jdk.version> 
+        <org.apache.struts.version>2.3.24</org.apache.struts.version> 
+        <org.springframework.version>4.1.5.RELEASE</org.springframework.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -106,13 +112,35 @@
             <version>3.1.0</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-core</artifactId>
+            <version>${org.apache.struts.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-spring-plugin</artifactId>
+            <version>${org.apache.struts.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-convention-plugin</artifactId>
+            <version>${org.apache.struts.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts.xwork</groupId>
+            <artifactId>xwork-core</artifactId>
+            <version>${org.apache.struts.version}</version>
+        </dependency>
     </dependencies>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdk.version>1.7</jdk.version> 
-        <org.springframework.version>4.1.5.RELEASE</org.springframework.version>
-    </properties>
-     <build>
+    
+    <build>
+        <finalName>NaZviazku</finalName>  
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

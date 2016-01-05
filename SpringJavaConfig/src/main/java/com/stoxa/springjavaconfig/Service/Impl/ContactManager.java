@@ -6,16 +6,13 @@
 package com.stoxa.springjavaconfig.Service.Impl;
 
 import com.stoxa.springjavaconfig.DAO.ContactDAO;
-import com.stoxa.springjavaconfig.DAO.Impl.ContactJDBCDao;
 import com.stoxa.springjavaconfig.EventListener.ClearEvent;
 import com.stoxa.springjavaconfig.Model.Contact;
 import com.stoxa.springjavaconfig.Entity.MappedContact;
 import com.stoxa.springjavaconfig.Service.ContactService;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,14 +42,6 @@ public class ContactManager implements ContactService, ApplicationEventPublisher
         this.publisher = publisher;
     }
     
-    public void init() {
-        this.contactsNumber=dao.selectAllContacts().size();
-        if (contactsNumber>=maxContactBookSize) {
-        clear();  
-            System.err.println("Почищена книга контактов");
-        }
-    }
-    
 
     @Override
     @Transactional
@@ -77,6 +66,12 @@ public class ContactManager implements ContactService, ApplicationEventPublisher
     @Transactional
     public Contact getContact(String phone) {
         return new Contact(dao.selectContact(phone));
+    }
+    
+    @Override
+    @Transactional
+    public Contact getContact(int id) {
+        return new Contact(dao.selectContact(id));
     }
     
      @Override

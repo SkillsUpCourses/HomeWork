@@ -6,24 +6,12 @@
 package com.stoxa.springjavaconfig.Model;
 
 import com.stoxa.springjavaconfig.Entity.MappedContact;
-import com.sun.org.apache.xpath.internal.operations.Equals;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.Collator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 
 /**

@@ -67,25 +67,6 @@ public class ContactManagerTest {
 
 
     /**
-     * Test of init method, of class ContactManager.
-     */
-    @Ignore
-    @Test
-    public void testInit() {
-        System.out.println("init test");
-        ContactManager spyContactManager = spy(instance);
-        ApplicationEventPublisher publisher = mock(ApplicationEventPublisher.class);
-        spyContactManager.setApplicationEventPublisher(publisher);
-        spyContactManager.setMaxContactBookSize(2);
-        Map<String,MappedContact> contacts = new HashMap<>();
-        contacts.put(contact1.getPhone(), new MappedContact(contact1));
-        contacts.put(contact2.getPhone(), new MappedContact(contact2));
-        when(dao.selectAllContacts()).thenReturn(contacts.values());
-        spyContactManager.init();
-        verify(spyContactManager).clear();
-    }
-
-    /**
      * Test of addContact method, of class ContactManager.
      */
     @Test

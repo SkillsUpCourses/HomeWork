@@ -30,7 +30,7 @@ import org.springframework.stereotype.Repository;
  */
 
 
-@Repository
+
 public class ContactJDBCDao implements ContactDAO {
     
 private static final Logger LOGGER = LoggerFactory.getLogger(ContactJDBCDao.class);

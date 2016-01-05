@@ -5,20 +5,26 @@
  */
 package com.stoxa.springjavaconfig.Config;
 
+import com.stoxa.springjavaconfig.DAO.ContactDAO;
+import com.stoxa.springjavaconfig.DAO.Impl.ContactJPADAO;
 import com.stoxa.springjavaconfig.EventListener.ClearEvent;
 import com.stoxa.springjavaconfig.EventListener.DeleteContactListener;
 import com.stoxa.springjavaconfig.Factory.ContactBeanFactory;
+import com.stoxa.springjavaconfig.Service.ContactService;
 import com.stoxa.springjavaconfig.Service.Impl.ContactManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
@@ -34,16 +40,34 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Ksu
  */
 @Configuration
-@ComponentScan({"com.stoxa.springjavaconfig.DAO", "com.stoxa.springjavaconfig.Service"})
+@ComponentScan({
+    "com.stoxa.springjavaconfig.DAO", 
+    "com.stoxa.springjavaconfig.Service",
+    "com.stoxa.springjavaconfig.Controllers",
+    "com.stoxa.springjavaconfig.Config"
+})
 @EnableTransactionManagement
 @PropertySource({"classpath:ContactBookMaximumSize.properties","classpath:contacts.properties"})
+@Import(WebAppConfig.class)
 public class AppConfig {
 
     
     @Bean
     public ContactBeanFactory contactBeanFactory() {
         return new ContactBeanFactory();
+        
     }
+    
+    /* @Bean
+    public ContactDAO dao () {
+        return new ContactJPADAO();
+    }
+    @Bean
+    public ContactService contactServise () {
+        ContactManager contactService = new ContactManager();
+        contactService.setDao(dao());
+        return contactService;
+    }**/
     
     @Bean
     public static PropertySourcesPlaceholderConfigurer configurer() {

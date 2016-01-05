@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 
-@Repository
+
 public class ContactHibernate2DAO extends HibernateDaoSupport implements ContactDAO {
 
     @Override

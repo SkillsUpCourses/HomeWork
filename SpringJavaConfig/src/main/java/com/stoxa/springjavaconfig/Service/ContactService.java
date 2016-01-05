@@ -17,6 +17,7 @@ public interface ContactService {
     void deleteContact (Contact contact);
     void updateContact(Contact contact);
     Contact getContact(String phone);
+    Contact getContact(int id);
     Collection<Contact> getAllContacts();
     void clearAll();
 }
