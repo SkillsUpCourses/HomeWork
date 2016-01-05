@@ -20,7 +20,7 @@ import org.springframework.aop.framework.autoproxy.AutoProxyUtils;
  * @author ksu
  */
 public class TestClass {
-   /*public static void main(String[] args) throws Exception {
+   public static void main(String[] args) throws Exception {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         FactoryBean factory = context.getBean(ContactBeanFactory.class);
         Contact c1 = (Contact) factory.getObject();
@@ -65,13 +65,8 @@ public class TestClass {
         
         System.out.println("******************************************");        
         
-        /*System.out.println("CLEAR ALL CONTACTS ==============");
-        contactService.clearAll();
-        Collection<Contact> result4 = contactService.getAllContacts();
-        for(Contact c : result4) {
-            System.out.println(c);
         
-    } **/
+    } 
    }
 
 

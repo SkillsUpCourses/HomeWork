@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,16 +31,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class ContactController {
     
     @Autowired
+    @Qualifier("contactManager")
     private ContactService contactService;
-    
-    @RequestMapping("/register")  
-    public ModelAndView getRegisterForm(@ModelAttribute("user") Contact contact,  
-            BindingResult result) {  
 
-        System.out.println("Register Form");  
-        return new ModelAndView("RegistredForm");  
-    }  
+    public void setContactService(ContactService contactService) {
+        this.contactService = contactService;
+    }
     
+
     @RequestMapping(value = "/addcontact", method = RequestMethod.POST)
     @ResponseBody
     public String addContact(@RequestBody Contact contact) {

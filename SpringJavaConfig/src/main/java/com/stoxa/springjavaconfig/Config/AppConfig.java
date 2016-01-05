@@ -5,6 +5,7 @@
  */
 package com.stoxa.springjavaconfig.Config;
 
+import com.stoxa.springjavaconfig.Controllers.ContactController;
 import com.stoxa.springjavaconfig.DAO.ContactDAO;
 import com.stoxa.springjavaconfig.DAO.Impl.ContactJPADAO;
 import com.stoxa.springjavaconfig.EventListener.ClearEvent;
@@ -43,7 +44,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan({
     "com.stoxa.springjavaconfig.DAO", 
     "com.stoxa.springjavaconfig.Service",
-    "com.stoxa.springjavaconfig.Controllers",
     "com.stoxa.springjavaconfig.Config"
 })
 @EnableTransactionManagement
@@ -58,16 +58,6 @@ public class AppConfig {
         
     }
     
-    /* @Bean
-    public ContactDAO dao () {
-        return new ContactJPADAO();
-    }
-    @Bean
-    public ContactService contactServise () {
-        ContactManager contactService = new ContactManager();
-        contactService.setDao(dao());
-        return contactService;
-    }**/
     
     @Bean
     public static PropertySourcesPlaceholderConfigurer configurer() {
