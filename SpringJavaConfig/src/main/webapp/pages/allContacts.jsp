@@ -10,10 +10,10 @@
     <body>  
     <center>  
       
-    <div style="color: teal;font-size: 30px">Being Java Guys | User Details</div>  
+    <div style="color: teal;font-size: 30px"> User Details</div>  
       
       
-      
+    <form:form method="POST" action="/NaZviazku/contacts"> 
     <c:if test="${!empty user}">  
     <table border="1" bgcolor="black" width="600px">  
     <tr style="background-color: teal;color: white;text-align: center;" height="40px">  
@@ -34,6 +34,7 @@
     </c:forEach>  
     </table>  
     </c:if>  
+    </form:form>
     </center>  
     </body>  
     </html>  

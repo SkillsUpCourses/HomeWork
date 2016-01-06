@@ -13,6 +13,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author ksu
  */
-@RequestMapping(value = "/nazviazku")
+
 @Controller
 public class ContactController {
     
@@ -38,8 +39,13 @@ public class ContactController {
         this.contactService = contactService;
     }
     
+    @RequestMapping(value = "/mainPage", method = RequestMethod.GET)
+    @ResponseBody
+    public String showIndex() {
+        return "index";
+    }
 
-    @RequestMapping(value = "/addcontact", method = RequestMethod.POST)
+   /* @RequestMapping(value = "/addcontact", method = RequestMethod.POST)
     @ResponseBody
     public String addContact(@RequestBody Contact contact) {
         contactService.addContact(contact);
@@ -66,6 +72,6 @@ public class ContactController {
     public void getContact(@PathVariable(value = "id") int id) {
          contactService.getContact(id);
     }
-
+**/
 }
 

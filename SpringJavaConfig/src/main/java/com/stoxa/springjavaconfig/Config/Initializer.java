@@ -12,12 +12,36 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
  *
  * @author ksu
  */
-public class Initializer implements WebApplicationInitializer {
+public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    @Override
+    protected Class<?>[] getRootConfigClasses(){
+        return new Class<?>[]{
+                WebAppConfig.class
+        };
+    }
+
+    @Override
+    protected Class<?>[] getServletConfigClasses(){
+
+        return new Class<?>[]{
+                WebAppConfig.class
+        };
+    }
+
+    @Override
+    protected String[] getServletMappings(){
+        return new String[]{"/"};
+    }
+}/** WebApplicationInitializer {
+    
+    
  
     private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
  
@@ -34,6 +58,5 @@ public class Initializer implements WebApplicationInitializer {
         servlet.addMapping("/");
         servlet.setLoadOnStartup(1);
     }
-
+**/
  
-}

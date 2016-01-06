@@ -44,7 +44,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan({
     "com.stoxa.springjavaconfig.DAO", 
     "com.stoxa.springjavaconfig.Service",
-    "com.stoxa.springjavaconfig.Config"
+    "com.stoxa.springjavaconfig.Config",
+    "com.stoxa.springjavaconfig.Controllers"
 })
 @EnableTransactionManagement
 @PropertySource({"classpath:ContactBookMaximumSize.properties","classpath:contacts.properties"})
